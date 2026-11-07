@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cout << "Enter number of products: ";
+    cin >> n;
+
+    // Fixed array creation to hold up to 100 items
+    int quantity[100];
+    float price[100];
+
+    // 1. Data Collection Loop
+    cout << "\nEnter quantity and price of each product:\n";
+    for (int i = 0; i < n; i++) {
+        cout << "\nProduct " << i + 1 << "\n";
+        cout << "Quantity: ";
+        cin >> quantity[i];
+        cout << "Price: ";
+        cin >> price[i];
+    }
+
+    // 2. Inventory Processing Loop
+    cout << "\n--- Inventory Details ---\n";
+    float totalValue = 0;
+
+    for (int i = 0; i < n; i++) {
+        // Value of a single product type = item count * item price
+        float value = quantity[i] * price[i];
+        totalValue = totalValue + value; // Add it to the total inventory value
+        
+        cout << "Product " << i + 1
+             << " | Quantity: " << quantity[i]
+             << " | Price: " << price[i]
+             << " | Value: " << value << endl;
+    }
+    cout << "\nTotal Inventory Value = " << totalValue << endl;
+
+    // 3. Finding the Highest Stocked Item
+    int maxIndex = 0; // Assume the first item (index 0) has the highest quantity
+    for (int i = 1; i < n; i++) {
+        if (quantity[i] > quantity[maxIndex]) {
+            maxIndex = i; // Update maxIndex if we find a larger quantity
+        }
+    }
+    cout << "Product with highest stock: Product " << maxIndex + 1 << endl;
+    cout << "Quantity: " << quantity[maxIndex] << endl;
+
+    // 4. Individual Product Search
+    int searchProduct;
+    cout << "\nEnter product number to check: ";
+    cin >> searchProduct;
+
+    // Check if the product number exists in our system
+    if (searchProduct >= 1 && searchProduct <= n) {
+        // Subtract 1 to match the 0-based array system
+        cout << "Quantity: " << quantity[searchProduct - 1] << endl;
+        cout << "Price: " << price[searchProduct - 1] << endl;
+    } else {
+        cout << "Invalid product number.\n";
+    }
+
+    return 0;
+}
